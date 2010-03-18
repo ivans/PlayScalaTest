@@ -1,6 +1,6 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
  
-<h1>Hello ${myName ?: 'guest'}!</h1>
+<h1>Hello ${myName ?: 'guest'}, there are ${userCount} users in db!</h1>
  
 <a href="@{Application.index()}">Back to form</a>

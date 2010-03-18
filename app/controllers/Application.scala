@@ -4,6 +4,8 @@ import play._
 import play.mvc._
 import play.data.validation.{Required, Validation}
 
+import models._
+
 object Application extends Controller {
 
   def index = {
@@ -18,7 +20,8 @@ object Application extends Controller {
         flash.error("Oops, please enter your name!")
         index
     }
-    render(myName)
+    val userCount = User.count.asInstanceOf[Object]
+    render(myName, userCount)
   }
 
 }
