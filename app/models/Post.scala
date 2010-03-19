@@ -18,8 +18,10 @@ class Post (
   var content : String,
   @Required
   @ManyToOne
-  var author : User
-  
+  var author : User,
+  @OneToMany(mappedBy="post", cascade=Array(CascadeType.ALL))
+  var comments : List[Comment]
+ 
 ) extends Model {
   override def toString = title
 }
