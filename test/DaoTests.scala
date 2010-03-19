@@ -18,7 +18,7 @@ class DaoTests extends UnitTest with ShouldMatchersForJUnit {
 	
 	@Test
 	def createUser() {
-		val user = new User("bob@gmail.com", "secret", "Bob", "Bla", false)
+		val user = new User("bob@gmail.com", "secret", "Bob", "Bla")
 		user.saveThis()
 		val bob = User.find("byEmail", "bob@gmail.com").first
 		bob should not be (null)
@@ -28,9 +28,9 @@ class DaoTests extends UnitTest with ShouldMatchersForJUnit {
 
 	@Test
 	def createPost() {
-		val user = new User("bob@gmail.com", "secret", "Bob", "Bla", false)
+		val user = new User("bob@gmail.com", "secret", "Bob", "Bla")
 		user.saveThis() 
-		val post = new Post("Test title", new Date, "Neki sadržaj posta.", user)
+		val post = new Post(user , "Test title", "Neki sadržaj posta.")
 		post.saveThis()
 		
 		Post.count should be (1)
@@ -41,18 +41,26 @@ class DaoTests extends UnitTest with ShouldMatchersForJUnit {
 
 	@Test
 	def createComment() {
-		val user = new User("bob@gmail.com", "secret", "Bob", "Bla", false)
-		user.saveThis
-		val post = new Post("Test title", new Date, "Neki sadržaj posta.", user)
+		val user = new User("bob@gmail.com", "secret", "Bob", "Bla")
+		val post = new Post(user, "Test title", "Neki sadržaj posta.")
+		
+		post addComment new Comment(post, "Jeff", "Nice post")
+		post addComment new Comment(post, "Tom", "I knew that !")
+		
+		post.addComment("Pero", "komentar 3")
 		post.saveThis
-		
-		val comment1 = new Comment(post, "Jeff", "Nice post")
-		val comment2 = new Comment(post, "Tom", "I knew that !")
-		
-		comment1.saveThis
-		comment2.saveThis
 
 		val postComments = Comment.find("byPost", post).fetch
-		postComments.size should be (2)
+		postComments.size should be (3)
+	}
+	
+	@Test
+	def testoviNaLoadanimPodacima() {
+		Fixtures.load("data.yml");
+
+	    // Count things
+		User.count should be (2)
+		Post.count should be (3)
+		Comment.count should be (3)
 	}
 }
