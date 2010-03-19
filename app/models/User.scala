@@ -8,10 +8,11 @@ import play.db.jpa._
 class User(
   var email : String,
   var password : String,
-  var fullname : String,
+  var firstName : String,
+  var lastName : String,
   var isAdmin : Boolean
 ) extends Model {
-  override def toString = fullname + ", " + email
+  override def toString = firstName + " " + lastName + ", " + email
 }
 
 object User extends QueryOn[User] {

@@ -4,5 +4,6 @@
 
 email=E-mail
 password=Password
-fullname=Full name
+firstName=First name
+lastName=Last name
 isAdmin=Is administrator?
