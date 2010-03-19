@@ -24,4 +24,18 @@ object Application extends Controller {
     render(myName, userCount)
   }
 
+  def addUser(@Required fullName : String, @Required email : String) {
+    println("Application.addUser")
+    if(Validation.hasErrors) {
+		println("validation errors")
+        flash.error("Enter username and email please!")
+        index
+    }
+    val user = new User(email, null, fullName, false)
+	user.saveThis()
+	flash.success("Saved new user: " + user)
+	println("Saved user")
+    index
+  }
+
 }
