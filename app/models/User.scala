@@ -5,7 +5,7 @@ import javax.persistence._
 import play.db.jpa._
  
 @Entity
-class User(
+class User (
   var email : String,
   var password : String,
   var firstName : String,
