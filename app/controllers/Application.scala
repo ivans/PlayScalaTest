@@ -10,7 +10,9 @@ object Application extends Controller {
 
   def index = {
     println("index: calling render...")
-    render()
+    val frontPost = Post.find("order by postedAt desc").first
+    val olderPosts = Post.find("order by postedAt desc").from(1).fetch(10);
+    render(frontPost, olderPosts);
   }
 
   def sayHello(@Required myName : String) {
