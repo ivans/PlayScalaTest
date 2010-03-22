@@ -26,8 +26,13 @@ object Application extends Controller {
 		render(post)
 	}
 	
-	def postComment(postId : Long, author : String, content : String) {
+	def postComment(postId : Long, @Required author : String, @Required content : String) {
 		val post = Post findById postId
+		if (Validation.hasErrors) {
+			flash error "Obavezno je unijeti autora i sadržaj!"
+	    	show(postId)
+	    }
+
     	post.addComment(author, content);
     	show(postId);
 	}
