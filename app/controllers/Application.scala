@@ -32,8 +32,8 @@ object Application extends Controller {
 			flash error "Obavezno je unijeti autora i sadržaj!"
 	    	show(postId)
 	    }
-
     	post.addComment(author, content);
+    	flash.success("Thanks for posting %s", author);
     	show(postId);
 	}
   
