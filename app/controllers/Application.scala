@@ -3,6 +3,7 @@ package controllers
 import play._
 import play.mvc._
 import play.data.validation.{Required, Validation}
+import play.libs.Images
 
 import models._
 
@@ -36,7 +37,12 @@ object Application extends Controller {
     	flash.success("Thanks for posting %s", author);
     	show(postId);
 	}
-  
+
+	def captcha() {
+		val captcha = Images.captcha();
+		renderBinary(captcha);
+	}
+	
 	def sayHello(@Required myName : String) {
 		println("Application.sayHello")
 		if(Validation.hasErrors) {
