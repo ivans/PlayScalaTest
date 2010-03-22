@@ -25,6 +25,12 @@ object Application extends Controller {
 		val post = Post findById id
 		render(post)
 	}
+	
+	def postComment(postId : Long, author : String, content : String) {
+		val post = Post findById postId
+    	post.addComment(author, content);
+    	show(postId);
+	}
   
 	def sayHello(@Required myName : String) {
 		println("Application.sayHello")

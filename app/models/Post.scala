@@ -27,6 +27,10 @@ class Post (
 		this(title, new Date, content, author, new ArrayList)
 	}
 
+	def previous = Post.find("postedAt < ? order by postedAt desc", postedAt).first
+ 
+	def next = Post.find("postedAt > ? order by postedAt asc", postedAt).first
+	
 	def addComment(newComment : Comment) : Post = {
 		comments.add(newComment)
 		this
@@ -41,5 +45,4 @@ class Post (
 }
 
 object Post extends QueryOn[Post] {
-	//extra finder methods here...
 }
