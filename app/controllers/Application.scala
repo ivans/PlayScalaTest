@@ -1,9 +1,10 @@
 package controllers
 
 import play._
+import play.cache._
 import play.mvc._
 import play.data.validation.{Required, Validation}
-import play.libs.Images
+import play.libs._
 
 import models._
 
@@ -24,23 +25,32 @@ object Application extends Controller {
 
 	def show(id : Long) {
 		val post = Post findById id
-		render(post)
+		val randomID = Codec.UUID()
+	    render(post, randomID)
 	}
 	
-	def postComment(postId : Long, @Required author : String, @Required content : String) {
+	def postComment(postId : Long, 
+					@Required(message="Author is required") author : String, 
+					@Required(message="A message is required") content : String,
+					@Required(message="Please type the code") code : String,
+					randomID : String) {
 		val post = Post findById postId
+		validation.equals(code, Cache.get(randomID)).message("Invalid code. Please type it again");
 		if (Validation.hasErrors) {
-			flash error "Obavezno je unijeti autora i sadržaj!"
-	    	show(postId)
+			params.flash()
+			Validation.errors.toArray.foreach(println _)
+			render("Application/show.html", post, randomID);
 	    }
     	post.addComment(author, content);
     	flash.success("Thanks for posting %s", author);
     	show(postId);
 	}
 
-	def captcha() {
-		val captcha = Images.captcha();
-		renderBinary(captcha);
+	def captcha(id : String) {
+	    val captcha = Images.captcha()
+	    val code = captcha getText "#E4EAFD"
+	    Cache.set(id, code, "10mn");
+	    renderBinary(captcha);
 	}
 	
 	def sayHello(@Required myName : String) {

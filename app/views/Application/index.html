@@ -32,7 +32,7 @@
 
 #{if frontPost}
     
-    #{display post:frontPost, as:'home' /}
+    #{post.display post:frontPost, as:'home' /}
     
     #{if olderPosts.size()}
     
@@ -40,7 +40,7 @@
             <h3>Older posts <span class="from">from this blog</span></h3>
         
             #{list items:olderPosts, as:'oldPost'}
-                #{display post:oldPost, as:'teaser' /}
+                #{post.display post:oldPost, as:'teaser' /}
             #{/list}
         </div>
         

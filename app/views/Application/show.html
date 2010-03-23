@@ -22,7 +22,7 @@
     <p class="success">${flash.success}</p>
 #{/if}
 
-#{display post:post, as:'full' /}
+#{post.display post:post, as:'full' /}
 
 <h3>Post a comment</h3>
  
@@ -34,14 +34,23 @@
 	    </p>
 	#{/if}
 
+	#{showErrors errors:errors /}
+
     <p>
         <label for="author">Your name: </label>
-        <input type="text" name="author" id="author" />
+        <input type="text" name="author" id="author" value="${flash.author}" />
     </p>
     <p>
         <label for="content">Your message: </label>
-        <textarea name="content" id="content"></textarea>
+        <textarea name="content" id="content" value="${flash.content}"></textarea>
     </p>
+	<p>
+	    <label for="code">Please type the code below: </label>
+	    <img src="@{Application.captcha(randomID)}" />
+	    <br />
+	    <input type="text" name="code" id="code" size="18" value="" />
+	    <input type="hidden" name="randomID" value="${randomID}" />
+	</p>
     <p>
         <input type="submit" value="Submit your comment" />
     </p>
