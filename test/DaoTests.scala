@@ -63,4 +63,18 @@ class DaoTests extends UnitTest with ShouldMatchersForJUnit {
 		Post.count should be (3)
 		Comment.count should be (3)
 	}
+	
+	@Test
+	def testTag() {
+		val tag1 = models.Tag.findOrCreateByName("abc")
+		tag1 should not be (null)
+		tag1.id should be (null)
+		
+		val tag2 = new models.Tag("cde")
+		tag2.saveThis
+		
+		val tag3 = models.Tag.findOrCreateByName("cde")
+		tag3 should not be (null)
+		tag3.id should not be (null)
+	}
 }

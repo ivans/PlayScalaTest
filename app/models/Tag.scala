@@ -11,4 +11,13 @@ class Tag(var name : String) extends Model with Comparable[Tag] {
 	override def toString = name
 }
 
-object Tag extends QueryOn[Tag]
+object Tag extends QueryOn[Tag] {
+	
+	def findOrCreateByName(name : String) : Tag = {
+		Tag.find("byName", name).first match {
+			case null => new Tag(name)
+			case tag => tag
+		}
+	}
+	
+}
