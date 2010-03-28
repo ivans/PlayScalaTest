@@ -23,6 +23,10 @@ class Post (
 	var comments : List[Comment] = new ArrayList
 
 ) extends Model {
+	
+	@ManyToMany(cascade=Array(CascadeType.PERSIST))
+	var tags : Set[Tag] = new TreeSet[Tag]
+	
 	def this(author : User, title : String, content : String) {
 		this(title, new Date, content, author, new ArrayList)
 	}
@@ -32,7 +36,7 @@ class Post (
 	def next = Post.find("postedAt > ? order by postedAt asc", postedAt).first
 	
 	def addComment(newComment : Comment) : Post = {
-		comments.add(newComment)
+		comments add newComment
 		this
 	}
 
@@ -41,6 +45,11 @@ class Post (
 		this
 	}
 
+	def tagItWith(name : String) : Post = {
+		tags.add(Tag findOrCreateByName name)
+		this
+	}
+	
 	override def toString = title
 }
 
