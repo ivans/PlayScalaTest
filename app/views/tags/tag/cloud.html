@@ -1,0 +1,9 @@
+*{ Display a tag cloud: param = cloud }*
+
+<hr/>
+<div>
+#{list items:_cloud, as:'cl'}
+	${cl.tag} se pojavljuje ${cl.pound} puta.<br/>
+#{/list}
+</div>
+<hr/>

@@ -26,7 +26,8 @@ object Application extends Controller {
 	def show(id : Long) {
 		val post = Post findById id
 		val randomID = Codec.UUID()
-	    render(post, randomID)
+		val cloud = Tag.getCloud
+	    render(post, randomID, cloud)
 	}
 	
 	def postComment(postId : Long, 
