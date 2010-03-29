@@ -85,7 +85,7 @@ class DaoTests extends UnitTest with ShouldMatchersForJUnit {
 		post isTaggedWith "test" should be (false)
 		post.tagItWith("test")
 		post isTaggedWith "test" should be (true)
-		post isTaggedWith "test" should be (true)
+		post isTaggedWith "test2" should be (false)
 		post.saveThis
 		Post.findTaggedWith("test").length should be (1)
 	}
