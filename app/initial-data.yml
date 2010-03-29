@@ -1,5 +1,11 @@
 # Test data
 
+Tag(t1):
+    name:           Tag1
+
+Tag(t2):
+    name:           Tag2
+
 User(bob):
     email:          bob@gmail.com
     password:       secret
@@ -22,6 +28,9 @@ Post(firstBobPost):
     title:          About the model layer
     postedAt:       2009-06-14
     author:         bob
+    tags:           
+                    - t1
+                    - t2
     content:        >
                     The model has a central position in a Play! application. It is the domain-specific 
                     representation of the information on which the application operates.
@@ -37,6 +46,8 @@ Post(secondBobPost):
     title:          Just a test of YABE
     postedAt:       2009-03-25
     author:         bob
+    tags:           
+                    - t1
     content:        >
                     Well, it's just a test.
                     

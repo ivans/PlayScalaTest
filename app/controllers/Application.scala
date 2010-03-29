@@ -78,4 +78,9 @@ object Application extends Controller {
 		index
 	}
 
+	def listTagged(tag : String) = {
+		val posts = Post.findTaggedWith(tag)
+    	render(tag, posts);
+	}
+
 }
