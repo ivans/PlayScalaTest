@@ -5,6 +5,8 @@ import javax.persistence._
 import play.db.jpa._
 import play.data.validation._
 
+import scala.collection.JavaConversions._
+
 @Entity
 class Post (
 
@@ -50,8 +52,15 @@ class Post (
 		this
 	}
 	
+	def isTaggedWith(name : String) = tags.exists(name equals _.name)
+	
 	override def toString = title
 }
 
 object Post extends QueryOn[Post] {
+	
+	def findTaggedWith(tag : String) : scala.List[Post] = {
+		Post.find("select distinct p from Post p join p.tags as t where t.name = ?", tag).fetch
+	}
+
 }

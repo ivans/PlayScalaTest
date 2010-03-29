@@ -82,9 +82,11 @@ class DaoTests extends UnitTest with ShouldMatchersForJUnit {
 	def testPostWithTags() {
 		val user = new User("bob@gmail.com", "secret", "Bob", "Bla")
 		val post = new Post(user , "Test title", "Neki sadržaj posta.")
-		post.tags.contains("test") should be (false)
+		post isTaggedWith "test" should be (false)
 		post.tagItWith("test")
-		post.tags.contains("test") should be (true)
-		post.tags.contains("test2") should be (false)
+		post isTaggedWith "test" should be (true)
+		post isTaggedWith "test" should be (true)
+		post.saveThis
+		Post.findTaggedWith("test").length should be (1)
 	}
 }
