@@ -19,5 +19,11 @@ object Tag extends QueryOn[Tag] {
 			case tag => tag
 		}
 	}
-	
+
+	def getCloud() : List[Map[String, Long]] = {
+		find("select new map(t.name as tag, count(p.id) as pound) from Post p join p.tags as t group by t.name")
+			.fetch
+			.asInstanceOf[List[Map[String, Long]]]
+	}
+
 }
