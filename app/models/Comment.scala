@@ -7,11 +7,16 @@ import play.data.validation._
 
 @Entity
 class Comment (
+	@Required
 	var author : String,
+	@Required
     var postedAt : Date,
     @Lob
+    @Required
+    @MaxSize(10000)
     var content : String,
     @ManyToOne
+    @Required
     var post : Post
 
 ) extends Model {
