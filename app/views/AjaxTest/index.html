@@ -8,26 +8,36 @@
 </div>
 
 <div id="datum">Ovdje ide datum</div>
-<input type="button" value="Refresh date" id="refreshDate"/>
+<input type="button" value="Refresh date" id="refreshDate" onclick="refreshDate()" />
 
 <hr/>
 
 <div id="nekiXml">Ovdje ide neki xml</div>
-<input type="button" value="Refresh xml" id="refreshXml"/>
+<input type="button" value="Refresh xml" id="refreshXml" onclick="refreshXml()" />
+
+<hr/>
+<input type="button" value="Load posts list" id="loadPosts" onclick="loadPosts()" />
+<div id="posts"/>
+
 
 <script type="text/javascript">
 
-	$('#refreshDate').click(function(e) {
+	function refreshDate() {
 		$.get('@{getDate()}', function(datum) {
 			$('#datum').html(datum);
 		}); 
-    });
+	}
 
-	$('#refreshXml').click(function(e) {
+	function refreshXml() {
 		$.get('@{getSomeXml()}', function(x) {
 			$('#nekiXml').html(x);
 		}); 
-    });
+	}
 
-	
+	function loadPosts() {
+		$.get('@{getPosts()}', function(x) {
+			$('#posts').html(x);
+		}); 
+	}
+
 </script>

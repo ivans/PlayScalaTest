@@ -8,6 +8,9 @@ import play.libs._
 
 import models._
 
+import scala.collection.JavaConversions._
+import scala.xml._
+
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -27,5 +30,10 @@ object AjaxTest extends Controller {
 				<span style="color: red">crveni tekst {rng.nextInt(100)} u spanu</span>
 			</div>.toString
 			)
-	
+
+	def getPosts = {
+		val postovi = Post.findAll.toList.asInstanceOf[List[Post]]
+		val xml = <table>{postovi.map(p => <tr><td>{p.title}</td><td>{p.author}</td></tr> )}</table>
+		renderText(xml.toString)
+	}
 }
