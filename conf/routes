@@ -9,6 +9,7 @@ GET     /posts/{tag}                            Application.listTagged
 GET     /hello                                  Application.sayHello
 GET	    /sifarnici					            module:crud
 GET     /captcha								Application.captcha
+GET		/ajax									AjaxTest.index
 
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public

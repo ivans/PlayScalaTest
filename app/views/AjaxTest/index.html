@@ -1,0 +1,33 @@
+#{extends 'main.html' /}
+#{set title:'Ajax Tests' /}
+
+
+<div id="newMessage">
+	<textarea id="message" name="message"></textarea>
+	<input type="button" value="send" id="send"/>
+</div>
+
+<div id="datum">Ovdje ide datum</div>
+<input type="button" value="Refresh date" id="refreshDate"/>
+
+<hr/>
+
+<div id="nekiXml">Ovdje ide neki xml</div>
+<input type="button" value="Refresh xml" id="refreshXml"/>
+
+<script type="text/javascript">
+
+	$('#refreshDate').click(function(e) {
+		$.get('@{getDate()}', function(datum) {
+			$('#datum').html(datum);
+		}); 
+    });
+
+	$('#refreshXml').click(function(e) {
+		$.get('@{getSomeXml()}', function(x) {
+			$('#nekiXml').html(x);
+		}); 
+    });
+
+	
+</script>
