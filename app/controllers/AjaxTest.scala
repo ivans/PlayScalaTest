@@ -19,11 +19,9 @@ object AjaxTest extends Controller {
 	
 	val rng = new scala.util.Random
 	
-	def getDate() : Unit = {
-		renderText(sdf.format(new Date))
-	}
+	def getDate = renderText(sdf.format(new Date))
 
-	def getSomeXml() : Unit = renderText(
+	def getSomeXml = renderText(
 			<div>
 				<span>Ovo je ({rng.nextInt(100)}) nekakav xml</span>
 				<span style="color: red">crveni tekst {rng.nextInt(100)} u spanu</span>
